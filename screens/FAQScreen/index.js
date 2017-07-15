@@ -24,7 +24,7 @@ export default class FAQScreen extends React.Component {
               pressMenuBarIcon={this.pressMenuBarIcon}
           />
 		  <WebView
-		      source={{uri: 'http://kuldeepgrewal.com/'}}
+		      source={{uri: 'https://support.what3words.com/hc/en-us'}}
 		  />
       </View>
     );
