@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import HomeReducer from './HomeReducer';
-import LinksReducer from './LinksReducer';
+import MapReducer from './MapReducer';
+import CompassReducer from './CompassReducer';
 import SettingsReducer from './SettingsReducer';
 import ProfileReducer from './ProfileReducer';
 
 export default combineReducers({
-	HomeReducer, LinksReducer, SettingsReducer, ProfileReducer
+	MapReducer, CompassReducer, SettingsReducer, ProfileReducer
 });

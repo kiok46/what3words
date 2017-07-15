@@ -1,15 +1,19 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { MenuBarComponent } from '../../components/MenuBar';
 
 
-export default class LinksScreen extends React.Component {
+export default class CompassScreen extends React.Component {
     static navigationOptions = {
-        drawerLabel: 'Book',
-        drawerIcon: ({ tintColor }) => (
-          <FontAwesome name="book" size={24} style={{ color: tintColor }} />
-        ),
+        drawer: {
+            label:
+            <View>
+                <Text>
+                    Compass h beti
+                </Text>
+            </View>
+        }
     };
 
     constructor(props){

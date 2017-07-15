@@ -14,12 +14,9 @@ import { FontAwesome } from '@expo/vector-icons';
 import { MenuBarComponent } from '../../components/MenuBar';
 
 
-export default class HomeScreen extends React.Component {
+export default class MapScreen extends React.Component {
     static navigationOptions = {
-        drawerLabel: 'Home',
-        drawerIcon: ({ tintColor }) => (
-          <FontAwesome name="home" size={24} style={{ color: tintColor }} />
-        ),
+        drawerLabel: 'Map',
     };
 
   constructor(props){

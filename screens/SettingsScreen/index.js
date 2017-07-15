@@ -7,9 +7,6 @@ import { MenuBarComponent } from '../../components/MenuBar';
 export default class SettingsScreen extends React.Component {
     static navigationOptions = {
         drawerLabel: 'Settings',
-        drawerIcon: ({ tintColor }) => (
-          <FontAwesome name="cog" size={24} style={{ color: tintColor }} />
-        ),
     };
 
     constructor(props){

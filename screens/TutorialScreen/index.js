@@ -4,9 +4,9 @@ import { FontAwesome } from '@expo/vector-icons';
 import { MenuBarComponent } from '../../components/MenuBar';
 
 
-export default class ProfileScreen extends React.Component {
+export default class TutorialScreen extends React.Component {
   static navigationOptions = {
-      drawerLabel: 'My Account',
+      drawerLabel: 'Tutorial',
   };
 
   constructor(props){
