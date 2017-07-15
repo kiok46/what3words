@@ -24,7 +24,7 @@ export default class AboutScreen extends React.Component {
               pressMenuBarIcon={this.pressMenuBarIcon}
           />
 		  <WebView
-		      source={{uri: 'http://kuldeepgrewal.com/'}}
+		      source={{uri: 'https://what3words.com/about/'}}
 		  />
       </View>
     );
