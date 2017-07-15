@@ -3,7 +3,7 @@ import {
 } from './types';
 
 import Colors from '../constants/Colors';
-import { INITIAL_STATE } from '../reducers/HomeReducer';
+import { INITIAL_STATE } from '../reducers/MapReducer';
 
 
 export const toggleActionState = (activate) => {

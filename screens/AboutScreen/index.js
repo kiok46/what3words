@@ -1,12 +1,12 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, View, StyleSheet, WebView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { MenuBarComponent } from '../../components/MenuBar';
 
 
-export default class ProfileScreen extends React.Component {
+export default class AboutScreen extends React.Component {
   static navigationOptions = {
-      drawerLabel: 'My Account',
+      drawerLabel: 'About',
   };
 
   constructor(props){
@@ -19,11 +19,14 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
           <MenuBarComponent
               pressMenuBarIcon={this.pressMenuBarIcon}
           />
-      </ScrollView>
+		  <WebView
+		      source={{uri: 'http://kuldeepgrewal.com/'}}
+		  />
+      </View>
     );
   }
 }
