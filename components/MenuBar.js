@@ -20,13 +20,26 @@ export class MenuBarComponent extends Component {
                 <FontAwesome
                     name="bars"
                     size={24}
-                    style={{ color: Colors.tintColor }}
+                    style={{ color: Colors.tintDarkGrey }}
+                    onPress={() => {
+                        this.props.pressMenuBarIcon()
+                      }
+                    }
+                />
+                <Text>
+                    What3Words
+                </Text>
+                <FontAwesome
+                    name="search"
+                    size={24}
+                    style={{ color: Colors.tintDarkGrey }}
                     onPress={() => {
                         this.props.pressMenuBarIcon()
                       }
                     }
                 />
             </View>
+
         </View>
     );
   }
@@ -37,9 +50,12 @@ const styles = StyleSheet.create({
     menuContainer: {
 		padding: 5,
         paddingTop: 24,
+        marginLeft: 10,
+        marginRight: 10,
 		alignItems: 'center',
 		flexDirection: 'row',
-		backgroundColor: 'white'
+		backgroundColor: 'white',
+        justifyContent: 'space-between',
 	},
     containerStyle: {
         borderWidth: 1,
@@ -53,6 +69,6 @@ const styles = StyleSheet.create({
         elevation: 1,
         // marginTop: 10
         marginTop: -1,
-        marginBottom: 10
+        marginBottom: 2
     },
 });
