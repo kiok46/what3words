@@ -6,12 +6,32 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  Dimensions,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
 
+import { FontAwesome } from '@expo/vector-icons';
+import { MapView } from 'expo';
+import Colors from '../../constants/Colors';
 import { MenuBarComponent } from '../../components/MenuBar';
+import { AddressButtons } from './AddressButtons';
+import { FindMeButton } from './FindMeButton';
+import { MapTypeAndPinButton } from './MapTypeAndPinButton';
+import { ZoomButtons } from './ZoomButtons';
+import { GoogleMapButton } from './GoogleMapButton';
+
+import flagPinkImg from '../../assets/icons/map-symbol.png';
+
+
+const { width, height } = Dimensions.get('window');
+
+const ASPECT_RATIO = width / height;
+const LATITUDE = 37.78825;
+const LONGITUDE = -122.4324;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+let id = 0;
 
 
 export default class MapScreen extends React.Component {
@@ -21,10 +41,120 @@ export default class MapScreen extends React.Component {
 
   constructor(props){
       super(props)
+      this.state = {
+          mapLoaded: false,
+          region: {
+             latitude: LATITUDE,
+             longitude: LONGITUDE,
+             latitudeDelta: LATITUDE_DELTA,
+             longitudeDelta: LONGITUDE_DELTA,
+          },
+          markers: [],
+          locked: true,
+          lockIconName: 'lock',
+        }
+  }
+
+  componentDidMount() {
+    this.setState({ mapLoaded: true });
+  }
+
+  onMapPress = (e) => {
+    this.setState({
+      markers: [
+        ...this.state.markers,
+        {
+          coordinate: e.nativeEvent.coordinate,
+          key: `foo${id++}`,
+        },
+      ],
+    });
+  }
+
+  onRegionChangeComplete = (region) => {
+    this.setState({ region });
   }
 
   pressMenuBarIcon = () => {
       this.props.navigation.navigate("DrawerOpen")
+  }
+
+  onPressPreviousAddressButton = () => {
+
+  }
+
+  onPressNextAddressButton = () => {
+
+  }
+
+  onAddressButtonPress = () => {
+
+  }
+
+  onDirectionButtonPress = () => {
+
+  }
+
+  onShareButtonPress = () => {
+
+  }
+
+  onPressFindMe = () => {
+
+  }
+
+  onPressZoomIn = () => {
+
+  }
+
+  onPressZoomOut = () => {
+
+  }
+
+  onPressLock = () => {
+      if (this.state.locked) {
+          this.setState({ locked: !this.state.locked, lockIconName: 'unlock-alt' })
+
+      } else {
+          this.setState({ locked: !this.state.locked, lockIconName: 'lock' })
+      }
+
+  }
+
+  onPressGoogleMapButton = () => {
+
+  }
+
+  onPressAlterMapType = () => {
+
+  }
+
+  previousAddressButton = () => {
+      return (
+          <FontAwesome
+              name="chevron-left"
+              size={24}
+              style={{ color: 'white' }}
+              onPress={() => {
+                  this.onPressPreviousAddressButton()
+                }
+              }
+          />
+      )
+  }
+
+  nextAddressButton = () => {
+      return (
+          <FontAwesome
+              name="chevron-right"
+              size={24}
+              style={{ color: 'white' }}
+              onPress={() => {
+                  this.onPressNextAddressButton()
+                }
+              }
+          />
+      )
   }
 
   render() {
@@ -34,44 +164,60 @@ export default class MapScreen extends React.Component {
             pressMenuBarIcon={this.pressMenuBarIcon}
         />
         <View style={{ flex: 1 }}>
+
+            <MapView
+              region={this.state.region}
+              style={{ flex: 1 }}
+              onPress={this.onMapPress}
+              onRegionChangeComplete={this.onRegionChangeComplete}
+            >
+            {this.state.markers.map(marker => (
+            <MapView.Marker
+              image={flagPinkImg}
+              key={marker.key}
+              coordinate={marker.coordinate}
+            />
+            ))}
+            </MapView>
+
+            <FindMeButton
+                onPressFindMe={() => this.onPressFindMe}
+            />
+
+            <MapTypeAndPinButton
+                onPressLock={() => this.onPressLock}
+                onPressAlterMapType={() => this.onPressAlterMapType}
+                lockIconName={this.state.lockIconName}
+            />
+
+            <ZoomButtons
+                onPressZoomIn={() => this.onPressZoomIn}
+                onPressZoomOut={() => this.onPressZoomOut}
+            />
+
+            <GoogleMapButton
+                onPressGoogleMapButton={() => this.onPressGoogleMapButton}
+            />
+
         </View>
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            This is a Drawerbar.
-          </Text>
-        </View>
+
+
+        <AddressButtons
+            previousAddressButton={this.previousAddressButton}
+            nextAddressButton={this.nextAddressButton}
+            onButtonPress={() => this.onButtonPress}
+            onAddressButtonPress={() => this.onAddressButtonPress}
+            onDirectionButtonPress={() => this.onDirectionButtonPress}
+            onShareButtonPress={() => this.onShareButtonPress}
+            shareText="Share pin location"
+            directionText="Directions to pin"
+            addressText="hydrant.gambles.stiff"
+        />
+
+
       </View>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will run slightly slower but
-          you have access to useful development tools. {learnMoreButton}.
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    Linking.openURL(
-      'https://docs.expo.io/versions/latest/guides/development-mode'
-    );
-  };
 
 }
 
@@ -80,85 +226,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 15,
-    textAlign: 'center',
+  addressTextStyle: {
+      color: 'white',
+      fontSize: 18
   },
-  contentContainer: {
-    paddingTop: 80,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 140,
-    height: 38,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 23,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+  addressButtonStyle: {
+    backgroundColor: 'rgba(225, 31, 38, 1)',
+    padding: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 });
