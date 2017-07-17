@@ -7,7 +7,7 @@ what3words app built in React-Native (Unofficial)
 Find it on Expo: https://exp.host/@kiok46/what3words-rn
 
 
-<img src="screenshots/about.png?raw=true" width="270"> <img src="screenshots/map.map?raw=true" width="270"> <img src="screenshots/faq.png?raw=true" width="270">
+<img src="screenshots/about.png?raw=true" width="270"> <img src="screenshots/map.png?raw=true" width="270"> <img src="screenshots/faq.png?raw=true" width="270">
 
 
 ### Blogs and Gists
