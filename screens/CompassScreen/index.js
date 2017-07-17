@@ -4,6 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { MenuBarComponent } from '../../components/MenuBar';
 
 
+
 export default class CompassScreen extends React.Component {
     static navigationOptions = {
         drawer: {
