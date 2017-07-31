@@ -4,6 +4,8 @@ what3words app built in React-Native (Unofficial)
 
 *Note: This is not the official what3words App but a Fan-made.*
 
+**Note 2: Work in progress, If you want to work on this app, feel free to send a PR or email me to ask details.**
+
 Find it on Expo: https://exp.host/@kiok46/what3words-rn
 
 
